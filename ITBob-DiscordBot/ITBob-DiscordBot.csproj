@@ -16,19 +16,19 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.1" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.1">
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.3" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.3">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.1" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.1" />
-      <PackageReference Include="NetCord" Version="1.0.0-alpha.450" />
-      <PackageReference Include="NetCord.Hosting" Version="1.0.0-alpha.450" />
-      <PackageReference Include="NetCord.Hosting.Services" Version="1.0.0-alpha.450" />
-      <PackageReference Include="NetCord.Services" Version="1.0.0-alpha.450" />
-      <PackageReference Include="Spectre.Console" Version="0.54.1-alpha.0.10" />
-      <PackageReference Include="Spectre.Console.Cli" Version="1.0.0-alpha.0.11" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.3" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.3" />
+      <PackageReference Include="NetCord" Version="1.0.0-alpha.467" />
+      <PackageReference Include="NetCord.Hosting" Version="1.0.0-alpha.467" />
+      <PackageReference Include="NetCord.Hosting.Services" Version="1.0.0-alpha.467" />
+      <PackageReference Include="NetCord.Services" Version="1.0.0-alpha.467" />
+      <PackageReference Include="Spectre.Console" Version="0.54.1-alpha.0.37" />
+      <PackageReference Include="Spectre.Console.Cli" Version="1.0.0-alpha.0.12" />
     </ItemGroup>
 
 </Project>
