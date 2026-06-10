@@ -21,20 +21,20 @@ public class VerifyApprove : ComponentInteractionModule<ButtonInteractionContext
                         "Verifiziren als Fachkraft",
                         ButtonStyle.Success)
                     {
-                        Emoji = EmojiProperties.Standard(":orange_circle:")
+                        Emoji = EmojiProperties.Custom(1335667919119585480)
                     },
                     new ButtonProperties("verify-approve-add-layer8:" + userId + ":" + name + ":" + className + ":" +
                                          Context.Interaction.Message.Id,
                         "Verifiziren als Layer8",
                         ButtonStyle.Success)
                     {
-                        Emoji = EmojiProperties.Standard(":black_circle:")
+                        Emoji = EmojiProperties.Custom(1335667919119585480)
                     },
 
                     new ButtonProperties("verify-deny:" + Context.Message.Id, "Ablehnen",
                         ButtonStyle.Secondary)
                     {
-                        Emoji = EmojiProperties.Standard(":x:")
+                        Emoji = EmojiProperties.Custom(1322169218682322955)
                     }
                 },
             ],

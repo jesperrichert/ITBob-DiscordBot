@@ -19,11 +19,17 @@ public class VerifyStartUserDataModal : ComponentInteractionModule<ModalInteract
     [ComponentInteraction("verify-start-userdata-modal")]
     public async Task<InteractionMessageProperties> Modal()
     {
-        var name = Context.Components.OfType<TextInput>().FirstOrDefault(input => input.CustomId == "name");
-        var classOption = Context.Components.OfType<TextInput>().FirstOrDefault(input => input.CustomId == "class");
+        var name = Context.Components.OfType<Label>()
+            .Select(l => l.Component)
+            .OfType<TextInput>()
+            .FirstOrDefault(input => input.CustomId == "name");
+        var classOption = Context.Components.OfType<Label>()
+            .Select(l => l.Component)
+            .OfType<TextInput>()
+            .FirstOrDefault(input => input.CustomId == "class");
         var guild = await Context.Client.Rest.GetGuildAsync((ulong)Context.Interaction.GuildId);
 
-        VerifyService.CreateVerifyRequestAsync(
+        await VerifyService.CreateVerifyRequestAsync(
             Context.User.Id,
             name?.Value ?? "Unknown",
             classOption?.Value ?? "Unknown",
