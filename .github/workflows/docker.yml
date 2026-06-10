@@ -46,5 +46,5 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/developmentstorage/itbob-discordbot:${{ github.run_number }}
-            ghcr.io/developmentstorage/itbob-discordbot:latest
+            ghcr.io/jesperrichert/itbob-discordbot:${{ github.run_number }}
+            ghcr.io/jesperrichert/itbob-discordbot:latest
