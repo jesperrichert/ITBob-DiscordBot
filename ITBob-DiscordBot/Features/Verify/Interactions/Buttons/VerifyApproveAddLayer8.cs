@@ -21,19 +21,23 @@ public class VerifyApproveAddLayer8 : ComponentInteractionModule<ButtonInteracti
     }
 
     [ComponentInteraction("verify-approve-add-layer8")]
-    public async Task<InteractionMessageProperties?> Button(ulong userId, string name, string className,
+    public async Task Button(ulong userId, string name, string className,
         ulong interactionMessageId)
     {
+        if (className != "" && className != "Unknown")
+        {
+            await Context.Interaction.SendResponseAsync(InteractionCallback.Message(
+                new InteractionMessageProperties().WithContent(
+                    "You not can verify a member wit a Class as Layer 8.").WithFlags(MessageFlags.Ephemeral)));
+            return;
+        }
+
         var guild = await Context.Client.Rest.GetGuildAsync((ulong)Context.Interaction.GuildId);
         if (guild is null)
-        {
-            Logger.LogWarning("Guild not found for interaction {InteractionId}", Context.Interaction.Id);
-            return new InteractionMessageProperties
-            {
-                Content = "Guild not found. Please try again later.",
-                Flags = MessageFlags.Ephemeral
-            };
-        }
+            await Context.Interaction.SendResponseAsync(InteractionCallback.Message(
+                new InteractionMessageProperties().WithContent("Guild not found. Please try again later.")
+                    .WithFlags(MessageFlags.Ephemeral)));
+
 
         var member = await guild.GetUserAsync(userId);
 
@@ -43,23 +47,21 @@ public class VerifyApproveAddLayer8 : ComponentInteractionModule<ButtonInteracti
         var role = await guild.GetRoleAsync(ConfigService.Get().FeatureConfig.Verify.Layer8RoleId);
 
         if (role == null)
-            return new InteractionMessageProperties
-            {
-                Content = "Layer8 role not found. Please contact an admin.",
-                Flags = MessageFlags.Ephemeral
-            };
+            await Context.Interaction.SendResponseAsync(InteractionCallback.Message(
+                new InteractionMessageProperties().WithContent("Layer8 role not found. Please contact an admin.")
+                    .WithFlags(MessageFlags.Ephemeral)));
 
         if (member.RoleIds.Contains(role.Id))
-            return new InteractionMessageProperties
-            {
-                Content = "User already has the Layer8 role.",
-                Flags = MessageFlags.Ephemeral
-            };
+        {
+            await Context.Interaction.SendResponseAsync(InteractionCallback.Message(
+                new InteractionMessageProperties().WithContent("User already has the Layer8 role.")
+                    .WithFlags(MessageFlags.Ephemeral)));
+            return;
+        }
 
         await member.AddRoleAsync(role.Id);
-        Logger.LogInformation("Added Layer8 role to user {UserId} ({UserName})", userId, member.Username);
 
-        VerifyService.SendVerifyLogMessage(
+        await VerifyService.SendVerifyLogMessageAsync(
             (TextChannel)(await guild.GetChannelsAsync()).FirstOrDefault(channel => channel.Id == ConfigService
                 .Get().FeatureConfig.Verify
                 .AdminVerifyChannelId
@@ -67,20 +69,10 @@ public class VerifyApproveAddLayer8 : ComponentInteractionModule<ButtonInteracti
             role, userId, Context.Interaction.User.Id);
 
         var interactionMessage = await Context.Channel.GetMessageAsync(interactionMessageId);
-        if (interactionMessage != null)
-        {
-            await interactionMessage.DeleteAsync();
-        }
-        else
-        {
-            Logger.LogWarning("Interaction message with ID {MessageId} not found.", interactionMessageId);
-        }
+        await interactionMessage.DeleteAsync();
 
-
-        return new InteractionMessageProperties
-        {
-            Content = "Done",
-            Flags = MessageFlags.Ephemeral
-        };
+        await Context.Interaction.SendResponseAsync(
+            InteractionCallback.Message(new InteractionMessageProperties().WithContent("Successfully verified.")
+                .WithFlags(MessageFlags.Ephemeral)));
     }
 }

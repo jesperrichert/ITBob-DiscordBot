@@ -16,7 +16,7 @@ public class VerifyService
         ConfigService = configService;
     }
 
-    public async Task SendVerifyLogMessage(TextChannel channel, Role role, ulong userId, ulong executer)
+    public async Task SendVerifyLogMessageAsync(TextChannel channel, Role role, ulong userId, ulong executer)
     {
         await channel.SendMessageAsync(
             new MessageProperties

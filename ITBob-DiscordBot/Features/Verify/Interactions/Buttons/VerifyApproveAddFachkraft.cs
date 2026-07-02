@@ -21,19 +21,18 @@ public class VerifyApproveAddFachkraft : ComponentInteractionModule<ButtonIntera
     }
 
     [ComponentInteraction("verify-approve-add-fachkraft")]
-    public async Task<InteractionMessageProperties> Button(ulong userId, string name, string className,
-        ulong interactionMessageId)
+    public async Task Button(ulong userId, string name, string className, ulong interactionMessageId)
     {
+        if (className is "" or "Unknown")
+        {
+            await Context.Interaction.SendResponseAsync(InteractionCallback.Message(
+                new InteractionMessageProperties().WithContent(
+                    "You not can verify a member without a Class as Fachkraft.").WithFlags(MessageFlags.Ephemeral)));
+            return;
+        }
         var guild = await Context.Client.Rest.GetGuildAsync((ulong)Context.Interaction.GuildId);
         if (guild is null)
-        {
-            Logger.LogWarning("Guild not found for interaction {InteractionId}", Context.Interaction.Id);
-            return new InteractionMessageProperties
-            {
-                Content = "Guild not found. Please try again later.",
-                Flags = MessageFlags.Ephemeral
-            };
-        }
+            await Context.Interaction.SendResponseAsync(InteractionCallback.Message(new InteractionMessageProperties().WithContent("Guild not found. Please try again later.").WithFlags(MessageFlags.Ephemeral)));
 
         var member = await guild.GetUserAsync(userId);
 
@@ -43,43 +42,25 @@ public class VerifyApproveAddFachkraft : ComponentInteractionModule<ButtonIntera
         var role = await guild.GetRoleAsync(ConfigService.Get().FeatureConfig.Verify.FachkraftRoleId);
 
         if (role == null)
-            return new InteractionMessageProperties
-            {
-                Content = "Fachkraft role not found. Please contact an admin.",
-                Flags = MessageFlags.Ephemeral
-            };
+            await Context.Interaction.SendResponseAsync(InteractionCallback.Message(new InteractionMessageProperties().WithContent("Fachkraft role not found. Please contact an admin.").WithFlags(MessageFlags.Ephemeral)));
 
         if (member.RoleIds.Contains(role.Id))
-            return new InteractionMessageProperties
-            {
-                Content = "User already has the Fachkraft role.",
-                Flags = MessageFlags.Ephemeral
-            };
-
+        {
+            await Context.Interaction.SendResponseAsync(InteractionCallback.Message(new InteractionMessageProperties()
+                .WithContent("User already has the Fachkraft role.").WithFlags(MessageFlags.Ephemeral)));
+            return;
+        }
         await member.AddRoleAsync(role.Id);
 
-        VerifyService.SendVerifyLogMessage(
+        await VerifyService.SendVerifyLogMessageAsync(
             (TextChannel)(await guild.GetChannelsAsync()).FirstOrDefault(channel => channel.Id == ConfigService
                 .Get().FeatureConfig.Verify
                 .AdminVerifyChannelId
-            ),
-            role, userId, Context.Interaction.User.Id);
+            ), role, userId, Context.Interaction.User.Id);
 
         var interactionMessage = await Context.Channel.GetMessageAsync(interactionMessageId);
-        if (interactionMessage != null)
-            return new InteractionMessageProperties
-            {
-                Content = "Done",
-                Components = [],
-                Flags = MessageFlags.Ephemeral
-            };
-        Logger.LogWarning("Interaction message not found for ID {InteractionMessageId}", interactionMessageId);
-        return new InteractionMessageProperties
-        {
-            Content = "Interaction message not found. Please try again later.",
-            Flags = MessageFlags.Ephemeral
-        };
+        await interactionMessage.DeleteAsync();
 
-
+        await Context.Interaction.SendResponseAsync(InteractionCallback.Message(new InteractionMessageProperties().WithContent("Successfully verified.").WithFlags(MessageFlags.Ephemeral)));
     }
 }
