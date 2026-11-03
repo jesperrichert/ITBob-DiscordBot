@@ -55,7 +55,7 @@
         <value>Successfully verified.</value>
     </data>
     <data name="Features.Verify.Interaction.Buttons.Layer8.Add.HasClassName" xml:space="preserve">
-        <value>You not can verify a member wit a Class as Layer 8.</value>
+        <value>You can not verify a member wiht a Class as Layer 8.</value>
     </data>
     <data name="Features.Verify.Interaction.Buttons.Layer8.Add.HasRole" xml:space="preserve">
         <value>User already has the Layer8 role.</value>
