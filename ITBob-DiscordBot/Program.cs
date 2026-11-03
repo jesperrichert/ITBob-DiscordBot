@@ -53,7 +53,7 @@ public static class Program
                     {
                         Activities =
                         [
-                            new UserActivityProperties("Custom Status", config.BotPresence.Type)
+                            new UserActivityProperties("", config.BotPresence.Type)
                                 { State = config.BotPresence.Name }
                         ],
                         StatusType = config.BotPresence.Status,

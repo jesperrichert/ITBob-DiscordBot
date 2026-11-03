@@ -1,4 +1,5 @@
 using ITBob_DiscordBot.Configuration;
+using ITBob_DiscordBot.Resources;
 using ITBob_DiscordBot.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -62,14 +63,15 @@ public class ReactionRoleCreationHandler
                             new ActionRowProperties
                             {
                                 new ButtonProperties("reactionrole-approve:" + message.Id + ":" + message.GuildId,
-                                    "Create and Approve Role",
+                                    Resource.Features_ReactionRoles_Handler_ReactionRole_Approve_Label,
                                     ButtonStyle.Success)
                                 {
                                     Disabled = false,
                                     Emoji = EmojiProperties.Standard(":white_check_mark:"),
                                     Id = 1
                                 },
-                                new ButtonProperties("reactionrole-deny:" + message.Id, "Deny Role Creation",
+                                new ButtonProperties("reactionrole-deny:" + message.Id,
+                                    Resource.Features_ReactionRoles_Handler_ReactionRole_Deny_Label,
                                     ButtonStyle.Danger)
                                 {
                                     Disabled = false,
@@ -102,7 +104,7 @@ public class ReactionRoleCreationHandler
         {
             await Task.Delay(
                 TimeSpan.FromSeconds(config.FeatureConfig.ReactionRoles.AutoDeleteUserInfoMessageAfterCreate));
-            await msg?.DeleteAsync();
+            await msg?.DeleteAsync()!;
         });
     }
 }

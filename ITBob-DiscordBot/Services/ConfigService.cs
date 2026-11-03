@@ -1,5 +1,6 @@
 using System.Text.Json;
 using ITBob_DiscordBot.Configuration;
+using ITBob_DiscordBot.Resources;
 using NetCord;
 using NetCord.Gateway;
 
@@ -27,7 +28,7 @@ public class ConfigService
                 },
                 BotPresence =
                 {
-                    Name = "Arbeitet gern für seinen Konzern.",
+                    Name = Resource.Bot_Application_Status_Text,
                     Status = UserStatusType.DoNotDisturb,
                     Type = UserActivityType.Custom, Url = ""
                 }

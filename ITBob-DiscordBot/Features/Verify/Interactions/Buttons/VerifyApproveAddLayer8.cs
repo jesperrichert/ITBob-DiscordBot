@@ -1,3 +1,4 @@
+using ITBob_DiscordBot.Resources;
 using ITBob_DiscordBot.Services;
 using Microsoft.Extensions.Logging;
 using NetCord;
@@ -28,17 +29,12 @@ public class VerifyApproveAddLayer8 : ComponentInteractionModule<ButtonInteracti
         {
             await Context.Interaction.SendResponseAsync(InteractionCallback.Message(
                 new InteractionMessageProperties().WithContent(
-                    "You not can verify a member wit a Class as Layer 8.").WithFlags(MessageFlags.Ephemeral)));
+                        Resource.Features_Verify_Interaction_Buttons_Layer8_Add_HasClassName)
+                    .WithFlags(MessageFlags.Ephemeral)));
             return;
         }
 
-        var guild = await Context.Client.Rest.GetGuildAsync((ulong)Context.Interaction.GuildId);
-        if (guild is null)
-            await Context.Interaction.SendResponseAsync(InteractionCallback.Message(
-                new InteractionMessageProperties().WithContent("Guild not found. Please try again later.")
-                    .WithFlags(MessageFlags.Ephemeral)));
-
-
+        var guild = await Context.Client.Rest.GetGuildAsync((ulong)Context.Interaction.GuildId!);
         var member = await guild.GetUserAsync(userId);
 
         await member.ModifyAsync(options =>
@@ -46,15 +42,12 @@ public class VerifyApproveAddLayer8 : ComponentInteractionModule<ButtonInteracti
 
         var role = await guild.GetRoleAsync(ConfigService.Get().FeatureConfig.Verify.Layer8RoleId);
 
-        if (role == null)
-            await Context.Interaction.SendResponseAsync(InteractionCallback.Message(
-                new InteractionMessageProperties().WithContent("Layer8 role not found. Please contact an admin.")
-                    .WithFlags(MessageFlags.Ephemeral)));
-
         if (member.RoleIds.Contains(role.Id))
         {
             await Context.Interaction.SendResponseAsync(InteractionCallback.Message(
-                new InteractionMessageProperties().WithContent("User already has the Layer8 role.")
+                new InteractionMessageProperties().WithContent(
+                        Resource.Features_Verify_Interaction_Buttons_Layer8_Add_HasRole
+                    )
                     .WithFlags(MessageFlags.Ephemeral)));
             return;
         }
@@ -65,14 +58,16 @@ public class VerifyApproveAddLayer8 : ComponentInteractionModule<ButtonInteracti
             (TextChannel)(await guild.GetChannelsAsync()).FirstOrDefault(channel => channel.Id == ConfigService
                 .Get().FeatureConfig.Verify
                 .AdminVerifyChannelId
-            ),
+            )!,
             role, userId, Context.Interaction.User.Id);
 
         var interactionMessage = await Context.Channel.GetMessageAsync(interactionMessageId);
         await interactionMessage.DeleteAsync();
 
         await Context.Interaction.SendResponseAsync(
-            InteractionCallback.Message(new InteractionMessageProperties().WithContent("Successfully verified.")
+            InteractionCallback.Message(new InteractionMessageProperties().WithContent(
+                    Resource.Features_Verify_Interaction_Buttons_Layer8_Add_Success
+                )
                 .WithFlags(MessageFlags.Ephemeral)));
     }
 }

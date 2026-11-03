@@ -1,3 +1,4 @@
+using ITBob_DiscordBot.Resources;
 using ITBob_DiscordBot.Services;
 using Microsoft.Extensions.Logging;
 using NetCord;
@@ -27,12 +28,12 @@ public class VerifyApproveAddFachkraft : ComponentInteractionModule<ButtonIntera
         {
             await Context.Interaction.SendResponseAsync(InteractionCallback.Message(
                 new InteractionMessageProperties().WithContent(
-                    "You not can verify a member without a Class as Fachkraft.").WithFlags(MessageFlags.Ephemeral)));
+                        Resource.Features_Verify_Interaction_Buttons_Fachkraft_Add_NoClassName)
+                    .WithFlags(MessageFlags.Ephemeral)));
             return;
         }
-        var guild = await Context.Client.Rest.GetGuildAsync((ulong)Context.Interaction.GuildId);
-        if (guild is null)
-            await Context.Interaction.SendResponseAsync(InteractionCallback.Message(new InteractionMessageProperties().WithContent("Guild not found. Please try again later.").WithFlags(MessageFlags.Ephemeral)));
+
+        var guild = await Context.Client.Rest.GetGuildAsync((ulong)Context.Interaction.GuildId!);
 
         var member = await guild.GetUserAsync(userId);
 
@@ -41,26 +42,29 @@ public class VerifyApproveAddFachkraft : ComponentInteractionModule<ButtonIntera
 
         var role = await guild.GetRoleAsync(ConfigService.Get().FeatureConfig.Verify.FachkraftRoleId);
 
-        if (role == null)
-            await Context.Interaction.SendResponseAsync(InteractionCallback.Message(new InteractionMessageProperties().WithContent("Fachkraft role not found. Please contact an admin.").WithFlags(MessageFlags.Ephemeral)));
-
         if (member.RoleIds.Contains(role.Id))
         {
             await Context.Interaction.SendResponseAsync(InteractionCallback.Message(new InteractionMessageProperties()
-                .WithContent("User already has the Fachkraft role.").WithFlags(MessageFlags.Ephemeral)));
+                .WithContent(
+                    Resource.Features_Verify_Interaction_Buttons_Fachkraft_Add_HasRole)
+                .WithFlags(MessageFlags.Ephemeral)));
             return;
         }
+
         await member.AddRoleAsync(role.Id);
 
         await VerifyService.SendVerifyLogMessageAsync(
             (TextChannel)(await guild.GetChannelsAsync()).FirstOrDefault(channel => channel.Id == ConfigService
                 .Get().FeatureConfig.Verify
                 .AdminVerifyChannelId
-            ), role, userId, Context.Interaction.User.Id);
+            )!, role, userId, Context.Interaction.User.Id);
+
+        await Context.Interaction.SendResponseAsync(InteractionCallback.Message(new InteractionMessageProperties()
+            .WithContent(
+                Resource.Features_Verify_Interaction_Buttons_Fachkraft_Add_Success
+            ).WithFlags(MessageFlags.Ephemeral)));
 
         var interactionMessage = await Context.Channel.GetMessageAsync(interactionMessageId);
         await interactionMessage.DeleteAsync();
-
-        await Context.Interaction.SendResponseAsync(InteractionCallback.Message(new InteractionMessageProperties().WithContent("Successfully verified.").WithFlags(MessageFlags.Ephemeral)));
     }
 }

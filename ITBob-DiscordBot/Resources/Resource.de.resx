@@ -1,0 +1,62 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Bot.Application.Status.Text" xml:space="preserve">
+        <value>Arbeitet gern für seinen Konzern.</value>
+    </data>
+    <data name="Commands.Ping.Message" xml:space="preserve">
+        <value>OoO... Pong to {0} \n-# I'm Connected with {1}ms</value>
+    </data>
+    <data name="Commands.Verify.Success" xml:space="preserve">
+        <value>Sent the verify start message successfully!</value>
+    </data>
+    <data name="Commands.Verify.Button.Label" xml:space="preserve">
+        <value>Follow the white rabbit...</value>
+    </data>
+    <data name="Features.ReactionRoles.Handler.ReactionRole.Approve.Label" xml:space="preserve">
+        <value>Create and Approve Role</value>
+    </data>
+    <data name="Features.ReactionRoles.Handler.ReactionRole.Deny.Label" xml:space="preserve">
+        <value>Deny Role Creation</value>
+    </data>
+    <data name="Features.Verify.Interaction.Buttons.Fachkraft.Approve.Label" xml:space="preserve">
+        <value>Verifiziren als Fachkraft</value>
+    </data>
+    <data name="Features.Verify.Interaction.Buttons.Deny" xml:space="preserve">
+        <value>Ablehnen</value>
+    </data>
+    <data name="Features.Verify.Interaction.Buttons.Layer8.Approve.Label" xml:space="preserve">
+        <value>Verifiziren als Layer8</value>
+    </data>
+    <data name="Features.Verify.Interaction.Buttons.Fachkraft.Add.NoClassName" xml:space="preserve">
+        <value>You not can verify a member without a Class as Fachkraft.</value>
+    </data>
+    <data name="Features.Verify.Interaction.Buttons.Fachkraft.Add.HasRole" xml:space="preserve">
+        <value>User already has the Fachkraft role.</value>
+    </data>
+    <data name="Features.Verify.Interaction.Buttons.Fachkraft.Add.Success" xml:space="preserve">
+        <value>Successfully verified.</value>
+    </data>
+    <data name="Features.Verify.Interaction.Buttons.Layer8.Add.Success" xml:space="preserve">
+        <value>Successfully verified.</value>
+    </data>
+    <data name="Features.Verify.Interaction.Buttons.Layer8.Add.HasRole" xml:space="preserve">
+        <value>User already has the Layer8 role.</value>
+    </data>
+    <data name="Features.Verify.Interaction.Buttons.Layer8.Add.HasClassName" xml:space="preserve">
+        <value>You not can verify a member wit a Class as Layer 8.</value>
+    </data>
+    <data name="Features.Verify.Interaction.Buttons.Deny.Text" xml:space="preserve">
+        <value>Die Verifizierung wurde abgelehnt.</value>
+    </data>
+</root>

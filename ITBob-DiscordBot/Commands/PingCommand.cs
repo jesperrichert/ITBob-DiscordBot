@@ -1,3 +1,4 @@
+using ITBob_DiscordBot.Resources;
 using NetCord;
 using NetCord.Rest;
 using NetCord.Services.ApplicationCommands;
@@ -10,7 +11,8 @@ public class PingCommand : ApplicationCommandModule<ApplicationCommandContext>
     public async Task<InteractionMessageProperties> Execute()
     {
         return new InteractionMessageProperties().WithContent(
-                $"OoO... Pong to {Context?.User.Username} \n-# I'm Connected with {Context?.Client.Latency.Milliseconds}ms")
+                string.Format(Resource.Commands_Ping_Message, Context?.User.Username,
+                    Context?.Client.Latency.Milliseconds))
             .WithFlags(MessageFlags.Ephemeral);
     }
 }

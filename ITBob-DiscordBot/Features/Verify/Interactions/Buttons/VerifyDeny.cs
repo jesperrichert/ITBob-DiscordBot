@@ -1,3 +1,4 @@
+using ITBob_DiscordBot.Resources;
 using NetCord;
 using NetCord.Rest;
 using NetCord.Services.ComponentInteractions;
@@ -13,7 +14,7 @@ public class VerifyDeny : ComponentInteractionModule<ButtonInteractionContext>
         await message.DeleteAsync();
         return new InteractionMessageProperties
         {
-            Content = "Die Verifizierung wurde abgelehnt.",
+            Content = Resource.Features_Verify_Interaction_Buttons_Deny_Text,
             Flags = MessageFlags.Ephemeral
         };
     }

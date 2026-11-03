@@ -39,7 +39,7 @@ public class ReactionRoleChatInGameChannelHandler
 
         var errorMessage =
             await forumThreadChannel?.SendMessageAsync(config.Messages.ReactionRoleMessages
-                .IsNotAllowedToSendMessagesInGameThread);
+                .IsNotAllowedToSendMessagesInGameThread)!;
 
         _ = Task.Run(async () =>
         {

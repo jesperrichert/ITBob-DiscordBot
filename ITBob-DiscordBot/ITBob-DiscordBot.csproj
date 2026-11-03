@@ -16,19 +16,34 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.3" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.3">
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.14" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.14">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.3" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.3" />
-      <PackageReference Include="NetCord" Version="1.0.0-alpha.467" />
-      <PackageReference Include="NetCord.Hosting" Version="1.0.0-alpha.467" />
-      <PackageReference Include="NetCord.Hosting.Services" Version="1.0.0-alpha.467" />
-      <PackageReference Include="NetCord.Services" Version="1.0.0-alpha.467" />
-      <PackageReference Include="Spectre.Console" Version="0.54.1-alpha.0.37" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.14" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.14" />
+      <PackageReference Include="NetCord" Version="1.0.0-beta.29" />
+      <PackageReference Include="NetCord.Hosting" Version="1.0.0-beta.29" />
+      <PackageReference Include="NetCord.Hosting.Services" Version="1.0.0-beta.29" />
+      <PackageReference Include="NetCord.Services" Version="1.0.0-beta.29" />
+      <PackageReference Include="Spectre.Console" Version="0.57.3-alpha.0.29" />
       <PackageReference Include="Spectre.Console.Cli" Version="1.0.0-alpha.0.12" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\Resource.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Resources\Resource.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Resource.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

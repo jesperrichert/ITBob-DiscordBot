@@ -36,22 +36,22 @@ public class ReactionRoleMessages
         """;
 
     public string AdminReactionRoleLog { get; set; } = """
-                                                       Die Rolle wurde erfolgreich erstellt und genehmigt von <@{0}>. 
+                                                       Die Rolle wurde erfolgreich erstellt und genehmigt von <@{0}>.
                                                        Rollenname: {1}
                                                        Thread URL: {2}
                                                        """;
 
     public string ForumThreadCreated { get; set; } =
         """
-        ## 💡 Willkommen bei r/topics für {0}!
+        ## Willkommen bei r/topics für {0}!
         > Bitte beachte, dass du hier nur Beiträge zu {0} erstellen solltest.
-        > Wenn du selber eine role erstellen willst gehe zu <#{1}> und erstelle dort eine neue Reaction Role.
-        > **Bitte gehe mit allen höflich um beachte unsere Regeln in <#1385340956403961886>!**
+        > Wenn du selber eine Rolle erstellen willst, gehe zu <#{1}> und erstelle dort eine neue Reaction Role.
+        > **Bitte gehe mit allen höflich um und beachte unsere Regeln in <#1385340956403961886>!**
         """;
 
     public string IsNotAllowedToSendMessagesInGameThread { get; set; } =
         """
-        -# ❗ Du bist nicht berechtigt, Nachrichten in diesem r/topics zu senden.
+        -# Du bist nicht berechtigt, Nachrichten in diesem r/topics zu senden.
         -# (Bitte kontaktiere einen Admin, wenn du denkst, dass dies ein Fehler ist.)
         """;
 

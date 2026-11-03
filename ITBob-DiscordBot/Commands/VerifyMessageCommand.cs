@@ -1,3 +1,4 @@
+using ITBob_DiscordBot.Resources;
 using ITBob_DiscordBot.Services;
 using Microsoft.Extensions.Configuration;
 using NetCord;
@@ -16,7 +17,8 @@ public class VerifyMessageCommand : ApplicationCommandModule<ApplicationCommandC
         ConfigService = configService;
     }
 
-    [SlashCommand("verifystartmessage", "[Admin] Send the verify start message to the user.")]
+    [SlashCommand("verify", "[Admin] Send the verify start message to the user.")]
+    [RequireUserPermissions<ApplicationCommandContext>(Permissions.Administrator)]
     [RequireUserPermissions<ApplicationCommandContext>(Permissions.Administrator)]
     [RequireContext<ApplicationCommandContext>(RequiredContext.Guild)]
     public async Task<InteractionMessageProperties> Execute()
@@ -27,11 +29,10 @@ public class VerifyMessageCommand : ApplicationCommandModule<ApplicationCommandC
             [
                 new ActionRowProperties
                 {
-                    new ButtonProperties("verify-start", "Follow the white rabbit...",
+                    new ButtonProperties("verify-start", Resource.Commands_Verify_Button_Label,
                         ButtonStyle.Secondary)
                     {
                         Id = 2,
-                        Label = "Follow the white rabbit...",
                         Style = ButtonStyle.Primary,
                         CustomId = "verify-start",
                     }
@@ -40,7 +41,7 @@ public class VerifyMessageCommand : ApplicationCommandModule<ApplicationCommandC
             Flags = MessageFlags.IsComponentsV2
         });
 
-        return new InteractionMessageProperties().WithContent("Sent the verify start message successfully!")
+        return new InteractionMessageProperties().WithContent(Resource.Commands_Verify_Success)
             .WithFlags(MessageFlags.Ephemeral);
     }
 }
